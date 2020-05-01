@@ -3,6 +3,7 @@ package com.satyendra.iris.zoo.services;
 import java.util.List;
 
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
 
 public interface IAnimalService {
 	
@@ -10,7 +11,7 @@ public interface IAnimalService {
 	
 	List<Animal> getAllAnimalFromZoo(int zooId);
 	
-	void addAnimal(String name, int pegId, int animalType);
+	int addAnimal(AnimalRequestDto animal);
 	
 
 }

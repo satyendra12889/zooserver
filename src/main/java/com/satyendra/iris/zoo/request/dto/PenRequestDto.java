@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ZooRequestDto {
-    String name;
+public class PenRequestDto {
+    
+    String penName;
+    int zooId;
 
 }

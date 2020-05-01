@@ -3,27 +3,35 @@ package com.satyendra.iris.zoo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.satyendra.iris.zoo.model.Peg;
+import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Zoo;
-import com.satyendra.iris.zoo.services.IZooAndPegService;
+import com.satyendra.iris.zoo.request.dto.ZooRequestDto;
+import com.satyendra.iris.zoo.services.IZooAndPenService;
 @RestController
 public class ZooController {
 	
 	@Autowired
-	public IZooAndPegService zooService;
+	public IZooAndPenService zooService;
 	
-	public void addZoo() {
+	@PostMapping("/zoo/add")
+	public ResponseEntity<String> addZoo(ZooRequestDto zoo) {
+	    zooService.addZooSpace(zoo);
+	    return new ResponseEntity<String>("Zoo is created successfully", HttpStatus.CREATED);
 		
 	}
 	
 	@GetMapping("/zoo")
-	public @ResponseBody List<Zoo> getZoo(){
-		return zooService.allZooSpaces();
+	public ResponseEntity<List<Zoo>> getZoo(){
+	    List<Zoo> zoos = zooService.getAllZooSpaces();
+		return new ResponseEntity<List<Zoo>>(zoos,HttpStatus.OK);
 	}
 	
 	public void removeZoo(){
@@ -33,9 +41,9 @@ public class ZooController {
 	public void addPeg() {
 		
 	}
-	@GetMapping("/peg/{id}")
+	@GetMapping("/pen/{id}")
 	@ResponseBody
-	public List<Peg> getPegs(@PathVariable("id") int zooid) {
+	public List<Pen> getPegs(@PathVariable("id") int zooid) {
 		
 		return zooService.allPegsFromZoo(zooid);
 		

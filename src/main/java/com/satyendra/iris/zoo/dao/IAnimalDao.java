@@ -6,7 +6,7 @@ import com.satyendra.iris.zoo.model.Animal;
 
 public interface IAnimalDao {
 
-	int addAnimal(String name, int peg_id, int type_id);
+	int addAnimal(Animal animal);
 	
 	Animal getAnimals(int id);
 	

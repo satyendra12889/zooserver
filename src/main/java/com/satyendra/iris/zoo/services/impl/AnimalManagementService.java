@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
 import com.satyendra.iris.zoo.services.IAnimalService;
 
 @Service
@@ -28,9 +29,11 @@ public class AnimalManagementService implements IAnimalService {
 	}
 
 	@Override
-	public void addAnimal(String name, int pegId, int animalType) {
-		
-		
+	public int addAnimal(AnimalRequestDto animalDto) {
+	    Animal animal  = new Animal();
+	    
+	    return animalDao.addAnimal(animal);
+
 	}
 
 }

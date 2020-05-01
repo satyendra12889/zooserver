@@ -19,14 +19,11 @@ public class ZooDao implements IZooDao {
 	
 	
 	@Override
-	public int addZoo(String name) {
-		
-		Zoo z = new Zoo();
-		z.name = name;
+	public int addZoo(Zoo zoo) {
 		
 		Session s = sessionfactory.getCurrentSession();
-		s.save(z);
-		return z.id;
+		s.save(zoo);
+		return zoo.id;
 	}
 
 	@Override

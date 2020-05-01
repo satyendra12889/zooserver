@@ -2,9 +2,6 @@ package com.satyendra.iris.zoo.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,12 +19,11 @@ public class AnimalDao implements IAnimalDao {
     private SessionFactory sessionfactory;
 	
 	@Override 
-	public int addAnimal(String name, int peg_id, int type_id) {
+	public int addAnimal(Animal animal) {
 		
-		Animal a = new Animal();
 		Session s = sessionfactory.getCurrentSession();
-		s.save(a);
-		return a.id;
+		s.save(animal);
+		return animal.id;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import com.satyendra.iris.zoo.model.Zoo;
 
 public interface IZooDao {
 	
-	int addZoo(String name);
+	int addZoo(Zoo zoo);
 	
 	Zoo getZoo(int id);
 	

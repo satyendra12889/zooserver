@@ -2,12 +2,16 @@ package com.satyendra.iris.zoo.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Animal {
 	
 	@Id
@@ -15,13 +19,11 @@ public class Animal {
 	
 	public String name; 
 	
-	@JsonBackReference
-	@ManyToOne
 	public AnimalType type;
 	
-	@JsonBackReference
+	
 	@OneToOne
-	public Peg peg;
+	public Pen peg;
 	
 
 }
