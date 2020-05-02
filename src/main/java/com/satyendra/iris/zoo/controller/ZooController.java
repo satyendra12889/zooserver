@@ -1,5 +1,6 @@
 package com.satyendra.iris.zoo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Zoo;
 import com.satyendra.iris.zoo.request.dto.ZooRequestDto;
+import com.satyendra.iris.zoo.response.dto.PenDto;
+import com.satyendra.iris.zoo.response.dto.ZooDto;
 import com.satyendra.iris.zoo.services.IZooAndPenService;
 @RestController
 public class ZooController {
@@ -29,9 +32,16 @@ public class ZooController {
 	}
 	
 	@GetMapping("/zoo")
-	public ResponseEntity<List<Zoo>> getZoo(){
-	    List<Zoo> zoos = zooService.getAllZooSpaces();
-		return new ResponseEntity<List<Zoo>>(zoos,HttpStatus.OK);
+	public ResponseEntity<List<ZooDto>> getZoo(){
+	    
+	    return new ResponseEntity<List<ZooDto>>(zooService.getAllZooSpaces(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/zoo/{id}")
+	public ResponseEntity<ZooDto> getZoo(@PathVariable("id") int id){
+		ZooDto zoo = zooService.getZooSpaces(id);
+		
+	    return new ResponseEntity<ZooDto>(zoo,HttpStatus.OK);
 	}
 	
 	public void removeZoo(){
@@ -43,9 +53,9 @@ public class ZooController {
 	}
 	@GetMapping("/pen/{id}")
 	@ResponseBody
-	public List<Pen> getPegs(@PathVariable("id") int zooid) {
+	public List<PenDto> getPegs(@PathVariable("id") int zooid) {
 		
-		return zooService.allPegsFromZoo(zooid);
+		return null;//zooService.allPegsFromZoo(zooid);
 		
 	}
 

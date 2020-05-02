@@ -38,8 +38,11 @@ public class AnimalDao implements IAnimalDao {
 	public List<Animal> getAnimalInZoo(int zooId) {
 		
 		Session s = sessionfactory.getCurrentSession();
-		Criteria criteria = s.createCriteria(Zoo.class);
-		criteria.add(Restrictions.eq("peg.id", zooId));
+		Criteria criteria = s.createCriteria(Animal.class);
+		criteria.createAlias("pen", "p");
+		criteria.createAlias("p.zoo", "z");
+		
+		criteria.add(Restrictions.eq("z.id", zooId));
 		return  criteria.list(); 
 
 		
