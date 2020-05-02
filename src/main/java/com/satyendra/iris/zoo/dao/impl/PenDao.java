@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.model.Pen;
-import com.satyendra.iris.zoo.model.Zoo;
+import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.model.Area;
 
 @Repository
 public class PenDao implements IPenDao {
@@ -48,6 +49,14 @@ public class PenDao implements IPenDao {
     public int addPen(Pen pen) {
         daoHelper.persist(sessionfactory, pen);
         return pen.id;
+    }
+
+    @Override
+    public List<Pen> getAllPens() {
+        Session s = sessionfactory.getCurrentSession();
+        Criteria cr = s.createCriteria(Pen.class);
+        List results = cr.list();
+        return results;
     }
 
 }

@@ -11,15 +11,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "zoo")
+@Table(name = "area")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Zoo {
+public class Area {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +25,7 @@ public class Zoo {
 	
 	public String name;
 	
-	@OneToMany(mappedBy = "zoo")
+	@OneToMany(mappedBy = "area")
 	public Set<Pen> pens;
 
 	public int getId() {

@@ -1,11 +1,7 @@
 
 package com.satyendra.iris.zoo.request.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
-public class ZooRequestDto {
+public class AreaRequestDto {
     String name;
 
 	public String getName() {

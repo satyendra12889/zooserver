@@ -14,53 +14,53 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.satyendra.iris.zoo.request.dto.PenRequestDto;
-import com.satyendra.iris.zoo.request.dto.ZooRequestDto;
-import com.satyendra.iris.zoo.response.dto.PenDto;
-import com.satyendra.iris.zoo.response.dto.ZooDto;
-import com.satyendra.iris.zoo.services.IZooAndPenService;
+import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
+import com.satyendra.iris.zoo.response.dto.PenResponse;
+import com.satyendra.iris.zoo.response.dto.AreaResponse;
+import com.satyendra.iris.zoo.services.IAreaAndPenService;
 
 @RestController
 public class ZooController {
 
     @Autowired
-    public IZooAndPenService zooService;
+    public IAreaAndPenService areaService;
 
-    @PostMapping("/zoo/add")
-    public ResponseEntity<String> addZoo(@RequestBody ZooRequestDto zoo) {
-        zooService.addZooSpace(zoo);
-        return new ResponseEntity<String>("Zoo is created successfully", HttpStatus.CREATED);
+    @PostMapping("/area/add")
+    public ResponseEntity<String> addZoo(@RequestBody AreaRequestDto area) {
+        areaService.addAreaSpace(area);
+        return new ResponseEntity<String>("area is created successfully", HttpStatus.CREATED);
 
     }
 
-    @GetMapping("/zoo")
-    public ResponseEntity<List<ZooDto>> getZoo() {
-        List<ZooDto> zoos = zooService.getAllZooSpaces();
-        return new ResponseEntity<List<ZooDto>>(zoos, HttpStatus.OK);
+    @GetMapping("/area")
+    public ResponseEntity<List<AreaResponse>> getarea() {
+        List<AreaResponse> areas = areaService.getAllAreaSpaces();
+        return new ResponseEntity<List<AreaResponse>>(areas, HttpStatus.OK);
     }
     
-	@GetMapping("/zoo/{id}")
-	public ResponseEntity<ZooDto> getZoo(@PathVariable("id") int id){
-		ZooDto zoo = zooService.getZooSpaces(id);
+	@GetMapping("/area/{id}")
+	public ResponseEntity<AreaResponse> getarea(@PathVariable("id") int id){
+		AreaResponse area = areaService.getAreaSpaces(id);
 		
-	    return new ResponseEntity<ZooDto>(zoo,HttpStatus.OK);
+	    return new ResponseEntity<AreaResponse>(area,HttpStatus.OK);
 	}
 
-    public void removeZoo() {
+    public void removearea() {
 
     }
 
     @PostMapping("/pen/add")
-    public ResponseEntity<String> addPen(PenRequestDto pen) {
-        zooService.addPen(pen);
+    public ResponseEntity<String> addPen(@RequestBody PenRequestDto pen) {
+        areaService.addPen(pen);
         return new ResponseEntity<String>("Pen is successfully created", HttpStatus.CREATED);
 
     }
 
     @GetMapping("/pen/{id}")
     @ResponseBody
-    public List<PenDto> getPegs(@PathVariable("id") int zooid) {
-        return zooService.allPegsFromZoo(zooid);
-
+    public List<PenResponse> getPegs(@PathVariable("id") int areaId) {
+        return areaService.allPensFromArea(areaId);
+        
     }
 
 }

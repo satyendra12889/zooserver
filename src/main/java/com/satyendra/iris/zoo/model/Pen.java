@@ -9,9 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
 
 @Entity
 @Table(name="pen")
@@ -24,7 +21,7 @@ public class Pen {
 	public String name;
 	
 	@ManyToOne
-	public Zoo zoo;
+	public Area area;
 	
 
 	@OneToOne
@@ -51,13 +48,13 @@ public class Pen {
 	}
 
 
-	public Zoo getZoo() {
-		return zoo;
+	public Area getArea() {
+		return area;
 	}
 
 
-	public void setZoo(Zoo zoo) {
-		this.zoo = zoo;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 

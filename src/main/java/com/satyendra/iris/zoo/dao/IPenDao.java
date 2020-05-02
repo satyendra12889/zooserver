@@ -14,5 +14,7 @@ public interface IPenDao {
 	Pen getPen(int id);
 	
 	List<Pen> list(int zooId);
+	
+	List<Pen> getAllPens();
 
 }

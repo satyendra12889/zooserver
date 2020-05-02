@@ -10,6 +10,8 @@ public interface IAnimalDao {
 	
 	Animal getAnimals(int id);
 	
-	List<Animal> getAnimalInZoo(int zooId);
+	List<Animal> getAnimalInArea(int areaId);
+	
+	List<Animal> getAllAnimals();
 	
 }

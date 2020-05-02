@@ -1,12 +1,12 @@
 package com.satyendra.iris.zoo.response.dto;
 
-public class PenDto {
+public class PenResponse {
 	
 	int pegId;
 	
 	String pegName;
 	
-	AnimalDto animal;
+	AnimalResponse animal;
 	
 	int available;
 
@@ -26,11 +26,11 @@ public class PenDto {
 		this.pegName = pegName;
 	}
 
-	public AnimalDto getAnimal() {
+	public AnimalResponse getAnimal() {
 		return animal;
 	}
 
-	public void setAnimal(AnimalDto animal) {
+	public void setAnimal(AnimalResponse animal) {
 		this.animal = animal;
 	}
 

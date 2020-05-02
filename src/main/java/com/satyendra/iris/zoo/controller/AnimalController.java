@@ -15,25 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
+import com.satyendra.iris.zoo.response.dto.AnimalResponse;
 import com.satyendra.iris.zoo.services.IAnimalService;
+
 @Controller
 @RestController("/animal")
 public class AnimalController {
-	
-	// TODO depend on the subtype
-	@Autowired
-	public IAnimalService animalService;
-	
-	@PostMapping("/add")
-	public ResponseEntity<String> addAnimal(@RequestBody AnimalRequestDto animal) {
-	     animalService.addAnimal(animal);
-	     return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
-	}
-	
-	@GetMapping("/list/{id}")
-	public @ResponseBody List<Animal> getAnimals(@PathVariable("id") int zooId){
-		return animalService.getAllAnimalFromZoo(zooId);
-	}
-	
+
+    // TODO depend on the subtype
+    @Autowired
+    public IAnimalService animalService;
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addAnimal(@RequestBody AnimalRequestDto animal) {
+        animalService.addAnimal(animal);
+        return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list/{id}")
+    public @ResponseBody List<Animal> getAnimals(@PathVariable("id") int zooId) {
+        return animalService.getAllAnimalFromArea(zooId);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AnimalResponse>> getAllAnimals() {
+        List<AnimalResponse> res = animalService.getAll();
+        return new ResponseEntity<List<AnimalResponse>>(res, HttpStatus.OK);
+    }
 
 }
