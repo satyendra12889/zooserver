@@ -11,40 +11,39 @@ import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.Zoo;
+import com.satyendra.iris.zoo.model.Pen;
+
 @Repository
 public class AnimalDao implements IAnimalDao {
-	
-	@Autowired
+
+    @Autowired
     private SessionFactory sessionfactory;
-	
-	@Override 
-	public int addAnimal(Animal animal) {
-		
-		Session s = sessionfactory.getCurrentSession();
-		s.save(animal);
-		return animal.id;
-	}
 
-	@Override
-	public Animal getAnimals(int id) {
-		Session s = sessionfactory.getCurrentSession();
-		Criteria cr = s.createCriteria(Animal.class);
-		List results = cr.list();
-		return (Animal)results.get(0);
-	}
+    @Autowired
+    private DaoHelper daoHelper;
 
-	@Override
-	public List<Animal> getAnimalInZoo(int zooId) {
-		
-		Session s = sessionfactory.getCurrentSession();
-		Criteria criteria = s.createCriteria(Zoo.class);
-		criteria.add(Restrictions.eq("peg.id", zooId));
-		return  criteria.list(); 
+    @Override
+    public int addAnimal(Animal animal) {
+        daoHelper.persist(sessionfactory, animal);
+        return animal.id;
+    }
 
-		
-	}
-	
-	
+    @Override
+    public Animal getAnimals(int id) {
+        Session s = sessionfactory.getCurrentSession();
+        Criteria cr = s.createCriteria(Animal.class);
+        List results = cr.list();
+        return (Animal) results.get(0);
+    }
+
+    @Override
+    public List<Animal> getAnimalInZoo(int penId) {
+
+        Session s = sessionfactory.getCurrentSession();
+        Criteria criteria = s.createCriteria(Animal.class);
+        criteria.add(Restrictions.eq("pen.id", penId));
+        return criteria.list();
+
+    }
 
 }

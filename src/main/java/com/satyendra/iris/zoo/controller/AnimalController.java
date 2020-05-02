@@ -30,8 +30,8 @@ public class AnimalController {
 	     return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/list")
-	public @ResponseBody List<Animal> getAnimals(@PathVariable int zooId){
+	@GetMapping("/list/{id}")
+	public @ResponseBody List<Animal> getAnimals(@PathVariable("id") int zooId){
 		return animalService.getAllAnimalFromZoo(zooId);
 	}
 	

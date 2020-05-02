@@ -1,6 +1,8 @@
 package com.satyendra.iris.zoo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -15,6 +17,7 @@ import lombok.Setter;
 public class Animal {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int id;
 	
 	public String name; 
@@ -23,7 +26,7 @@ public class Animal {
 	
 	
 	@OneToOne
-	public Pen peg;
+	public Pen pen;
 	
 
 }
