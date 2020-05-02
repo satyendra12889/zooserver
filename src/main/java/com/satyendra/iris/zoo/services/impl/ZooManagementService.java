@@ -1,17 +1,24 @@
 
 package com.satyendra.iris.zoo.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.dao.IZooDao;
+import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Zoo;
 import com.satyendra.iris.zoo.request.dto.PenRequestDto;
 import com.satyendra.iris.zoo.request.dto.ZooRequestDto;
+import com.satyendra.iris.zoo.response.dto.AnimalDto;
+import com.satyendra.iris.zoo.response.dto.PenDto;
+import com.satyendra.iris.zoo.response.dto.ZooDto;
 import com.satyendra.iris.zoo.services.IZooAndPenService;
 
 @Service
@@ -22,6 +29,9 @@ public class ZooManagementService implements IZooAndPenService {
 
     @Autowired
     public IPenDao penService;
+    
+    @Autowired
+    public IAnimalDao animalService;
 
     @Override
     public void addZooSpace(ZooRequestDto zoo) {
@@ -33,9 +43,20 @@ public class ZooManagementService implements IZooAndPenService {
     }
 
     @Override
-    public List<Zoo> getAllZooSpaces() {
+    public List<ZooDto> getAllZooSpaces() {
 
-        return zooService.list();
+    	List<Zoo> zoos = zooService.list();
+		List<ZooDto> zooDtos = new ArrayList<>();
+	    for (int i = 0; i < zoos.size(); i++) {
+			ZooDto  dto = new ZooDto();
+			Zoo z = zoos.get(i);
+			dto.setZooId(z.id);
+			dto.setZooName(z.name);
+			zooDtos.add(dto);
+		}
+	    
+        return zooDtos;
+
     }
 
     @Override
@@ -49,9 +70,51 @@ public class ZooManagementService implements IZooAndPenService {
 
     }
 
-    @Override
-    public List<Pen> allPegsFromZoo(int zooid) {
-        return penService.list(zooid);
-    }
+    
+
+	@Override
+	public ZooDto getZooSpaces(int zooId) {
+		Zoo z = zooService.getZoo(zooId);
+		
+		List<Animal> animal = animalService.getAnimalInZoo(zooId);
+		
+		ZooDto dto  = new ZooDto();
+		dto.setZooId(zooId);
+		dto.setZooName(z.name);
+		
+		Set<Pen> p = z.getPens();
+		
+		List<PenDto> pendtos  = new ArrayList<>();
+		List<AnimalDto> animaldtos  = new ArrayList<>();
+		
+		for (Pen pen : p) {
+			PenDto pdto = new PenDto();
+			AnimalDto adto = new AnimalDto();
+			pdto.setPegId(pen.getId());
+			pdto.setPegName(pen.getName());
+			pendtos.add(pdto);
+		}
+		
+		
+		for (Animal animalDto : animal) {
+			AnimalDto adto  = new AnimalDto();
+			adto.setAnimalId(animalDto.getId());
+			adto.setAnimalName(animalDto.getName());
+			adto.setAsisgned(0);
+			animaldtos.add(adto);
+		}
+		
+		dto.setAllPens(pendtos);
+		dto.setAllAnimal(animaldtos);
+		return dto;
+
+
+	}
+
+	@Override
+	public List<PenDto> allPegsFromZoo(int zooid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

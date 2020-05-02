@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "zoo")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,5 +29,31 @@ public class Zoo {
 	
 	@OneToMany(mappedBy = "zoo")
 	public Set<Pen> pens;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Pen> getPens() {
+		return pens;
+	}
+
+	public void setPens(Set<Pen> pens) {
+		this.pens = pens;
+	}
+	
+	
 
 }

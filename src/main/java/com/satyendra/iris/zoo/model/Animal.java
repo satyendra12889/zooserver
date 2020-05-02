@@ -7,12 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Getter
-@Setter
 public class Animal {
 	
 	@Id
@@ -21,11 +16,49 @@ public class Animal {
 	
 	public String name; 
 	
-	public AnimalType type;
+	public int type;
 	
 	
 	@OneToOne
 	public Pen pen;
-	
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getType() {
+		return type;
+	}
+
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+
+	public Pen getPen() {
+		return pen;
+	}
+
+
+	public void setPen(Pen pen) {
+		this.pen = pen;
+	}
 }

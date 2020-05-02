@@ -38,12 +38,14 @@ public class AnimalDao implements IAnimalDao {
     }
 
     @Override
-    public List<Animal> getAnimalInZoo(int penId) {
+    public List<Animal> getAnimalInZoo(int zooId) {
 
         Session s = sessionfactory.getCurrentSession();
         Criteria criteria = s.createCriteria(Animal.class);
-        criteria.add(Restrictions.eq("pen.id", penId));
-        return criteria.list();
+		criteria.createAlias("pen", "p");
+		criteria.createAlias("p.zoo", "z");
+		criteria.add(Restrictions.eq("z.id", zooId));
+		return criteria.list();
 
     }
 

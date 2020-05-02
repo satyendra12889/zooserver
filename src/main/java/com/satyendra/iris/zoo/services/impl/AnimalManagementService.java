@@ -32,7 +32,7 @@ public class AnimalManagementService implements IAnimalService {
 	public int addAnimal(AnimalRequestDto animalDto) {
 	    Animal animal  = new Animal();
 	    animal.setName(animalDto.getAnimalName());
-	    animal.setType(animalDto.getType());
+//	    animal.setType(animalDto.getType());
 	    Pen pen = new Pen();
 	    pen.setId(animalDto.getPenId());
 	    animal.setPen(pen);
