@@ -21,33 +21,33 @@ import com.satyendra.iris.zoo.response.dto.AnimalTypeDto;
 import com.satyendra.iris.zoo.services.IAnimalService;
 
 @Controller
-@RestController("/animal")
+@RestController
 public class AnimalController {
 
     // TODO depend on the subtype
     @Autowired
     public IAnimalService animalService;
 
-    @PostMapping("/add")
+    @PostMapping("animal/add")
     public ResponseEntity<String> addAnimal(@RequestBody AnimalRequestDto animal) {
        
     	animalService.addAnimal(animal);
         return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
     }
 
-    @GetMapping("/list/{id}")
+    @GetMapping("animal/list/{id}")
     public @ResponseBody List<Animal> getAnimals(@PathVariable("id") int zooId) {
         return animalService.getAllAnimalFromArea(zooId);
     }
     
     
-    @GetMapping("/type/list")
+    @GetMapping("animal/type/list")
     public  ResponseEntity<List<AnimalTypeDto>> getAnimalType() {
         return new ResponseEntity<List<AnimalTypeDto>>(animalService.getAnimalType(), HttpStatus.OK);
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("animal/all")
     public ResponseEntity<List<AnimalResponse>> getAllAnimals() {
         List<AnimalResponse> res = animalService.getAll();
         return new ResponseEntity<List<AnimalResponse>>(res, HttpStatus.OK);

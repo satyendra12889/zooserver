@@ -26,7 +26,7 @@ public class Pen {
 	int serialNo;
 	
 
-	@OneToOne
+	@OneToOne(mappedBy = "pen")
 	public Stock stock;
 
 

@@ -1,6 +1,7 @@
 package com.satyendra.iris.zoo.request.dto;
 
 public class StockRequestDto {
+	int stockId;
 	String name;
 	int id;
 	int animaId;
@@ -30,7 +31,10 @@ public class StockRequestDto {
 	public void setPenId(int penId) {
 		this.penId = penId;
 	}
-    
-    
-    
+	public int getStockId() {
+		return stockId;
+	}
+	public void setStockId(int stockId) {
+		this.stockId = stockId;
+	}
 }

@@ -55,20 +55,20 @@ public class AnimalManagementService implements IAnimalService {
         List<AnimalResponse> res = new ArrayList<AnimalResponse>();
 
         List<Animal> animals = animalDao.getAllAnimals();
-        List<Pen> pens = penDao.getAllPens();
-        Map<Integer, Area> map = new HashMap<>();
-
-        for (Pen p : pens) {
-            map.put(p.getId(), p.getArea());
-        }
-
+//        List<Pen> pens = penDao.getAllPens();
+//        Map<Integer, Area> map = new HashMap<>();
+//
+//        for (Pen p : pens) {
+//            map.put(p.getId(), p.getArea());
+//        }
+//
         for (Animal a : animals) {
             AnimalResponse as = new AnimalResponse();
+            as.setAnimalId(a.getId());
             as.setAnimalName(a.getName());
-            
 //            as.setPenResponse(getPenResponse(a.getPen()));
 //            as.setAreaResponse(getAreaResponse(map.get(a.getPen().getId())));
-//            res.add(as);
+            res.add(as);
         }
 
         return res;
@@ -91,8 +91,6 @@ public class AnimalManagementService implements IAnimalService {
 	@Override
 	public List<AnimalTypeDto> getAnimalType() {
 		List<AnimalTypeDto> atr = new ArrayList<>();
-		
-		
 		
 		AnimalType[] arr = AnimalType.values();
 		for (AnimalType animalType : arr) {

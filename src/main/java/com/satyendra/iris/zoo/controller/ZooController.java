@@ -27,7 +27,7 @@ public class ZooController {
     public IAreaAndPenService areaService;
 
     @PostMapping("/area/add")
-    public ResponseEntity<String> addZoo(@RequestBody AreaRequestDto area) {
+    public ResponseEntity<String> addArea(@RequestBody AreaRequestDto area) {
         // area could not be created without pen.
     	if(area.getQty()>0 && area.getName()!=null) {
     	
@@ -65,7 +65,7 @@ public class ZooController {
 
     @GetMapping("/pen/{id}")
     @ResponseBody
-    public List<PenResponse> getPegs(@PathVariable("id") int areaId) {
+    public List<PenResponse> getPen(@PathVariable("id") int areaId) {
         return areaService.allPensFromArea(areaId);
         
     }
