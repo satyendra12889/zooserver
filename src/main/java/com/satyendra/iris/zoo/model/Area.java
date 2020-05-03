@@ -25,6 +25,8 @@ public class Area {
 	
 	public String name;
 	
+	public int qty;
+	
 	@OneToMany(mappedBy = "area")
 	public Set<Pen> pens;
 
@@ -50,6 +52,14 @@ public class Area {
 
 	public void setPens(Set<Pen> pens) {
 		this.pens = pens;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
 	}
 	
 	

@@ -1,11 +1,13 @@
 
 package com.satyendra.iris.zoo.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Animal {
@@ -18,11 +20,10 @@ public class Animal {
 	
 	public int type;
 	
+	@OneToMany(mappedBy = "animal")
+	public Set<Stock> stock;
 	
-	@OneToOne
-	public Pen pen;
-
-
+	
 	public int getId() {
 		return id;
 	}
@@ -52,13 +53,4 @@ public class Animal {
 		this.type = type;
 	}
 
-
-	public Pen getPen() {
-		return pen;
-	}
-
-
-	public void setPen(Pen pen) {
-		this.pen = pen;
-	}
 }

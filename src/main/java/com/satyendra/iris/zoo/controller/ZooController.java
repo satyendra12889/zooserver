@@ -17,6 +17,7 @@ import com.satyendra.iris.zoo.request.dto.PenRequestDto;
 import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
 import com.satyendra.iris.zoo.response.dto.PenResponse;
 import com.satyendra.iris.zoo.response.dto.AreaResponse;
+import com.satyendra.iris.zoo.response.dto.DashBoardResponse;
 import com.satyendra.iris.zoo.services.IAreaAndPenService;
 
 @RestController
@@ -27,9 +28,15 @@ public class ZooController {
 
     @PostMapping("/area/add")
     public ResponseEntity<String> addZoo(@RequestBody AreaRequestDto area) {
-        areaService.addAreaSpace(area);
+        // area could not be created without pen.
+    	if(area.getQty()>0 && area.getName()!=null) {
+    	
+    	areaService.addAreaSpace(area.getName(),area.getQty());
         return new ResponseEntity<String>("area is created successfully", HttpStatus.CREATED);
-
+    	
+    	}else {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	
+        }
     }
 
     @GetMapping("/area")
@@ -42,7 +49,7 @@ public class ZooController {
 	public ResponseEntity<AreaResponse> getarea(@PathVariable("id") int id){
 		AreaResponse area = areaService.getAreaSpaces(id);
 		
-	    return new ResponseEntity<AreaResponse>(area,HttpStatus.OK);
+	    return new ResponseEntity<AreaResponse>(area, HttpStatus.OK);
 	}
 
     public void removearea() {
@@ -60,6 +67,13 @@ public class ZooController {
     @ResponseBody
     public List<PenResponse> getPegs(@PathVariable("id") int areaId) {
         return areaService.allPensFromArea(areaId);
+        
+    }
+    
+    @GetMapping("/dashboard")
+    @ResponseBody
+    public ResponseEntity<DashBoardResponse> getDashBoard() {
+        return new ResponseEntity<DashBoardResponse>(areaService.getDashBoardResponse(), HttpStatus.OK);
         
     }
 

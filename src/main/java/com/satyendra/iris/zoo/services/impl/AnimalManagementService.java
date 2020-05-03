@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.model.Area;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
 import com.satyendra.iris.zoo.response.dto.AnimalResponse;
+import com.satyendra.iris.zoo.response.dto.AnimalTypeDto;
+import com.satyendra.iris.zoo.response.dto.AnimalTypeResponse;
 import com.satyendra.iris.zoo.response.dto.AreaResponse;
 import com.satyendra.iris.zoo.response.dto.PenResponse;
 import com.satyendra.iris.zoo.services.IAnimalService;
@@ -30,8 +33,8 @@ public class AnimalManagementService implements IAnimalService {
 
     @Override
     public Animal getAnimal(int id) {
-        // TODO Auto-generated method stub
-        return null;
+
+    	return null;
     }
 
     @Override
@@ -43,12 +46,8 @@ public class AnimalManagementService implements IAnimalService {
     public int addAnimal(AnimalRequestDto animalDto) {
         Animal animal = new Animal();
         animal.setName(animalDto.getAnimalName());
-        //	    animal.setType(animalDto.getType());
-        Pen pen = new Pen();
-        pen.setId(animalDto.getPenId());
-        animal.setPen(pen);
+        animal.setType(animalDto.getType());
         return animalDao.addAnimal(animal);
-
     }
 
     @Override
@@ -67,9 +66,9 @@ public class AnimalManagementService implements IAnimalService {
             AnimalResponse as = new AnimalResponse();
             as.setAnimalName(a.getName());
             
-            as.setPenResponse(getPenResponse(a.getPen()));
-            as.setAreaResponse(getAreaResponse(map.get(a.getPen().getId())));
-            res.add(as);
+//            as.setPenResponse(getPenResponse(a.getPen()));
+//            as.setAreaResponse(getAreaResponse(map.get(a.getPen().getId())));
+//            res.add(as);
         }
 
         return res;
@@ -88,4 +87,21 @@ public class AnimalManagementService implements IAnimalService {
         as.setAreaId(a.getId());
         return as;
     }
+
+	@Override
+	public List<AnimalTypeDto> getAnimalType() {
+		List<AnimalTypeDto> atr = new ArrayList<>();
+		
+		
+		
+		AnimalType[] arr = AnimalType.values();
+		for (AnimalType animalType : arr) {
+			AnimalTypeDto adto = new AnimalTypeDto();
+			adto.setCodeId(animalType.getNumVal());
+			adto.setName(animalType.getName());
+			atr.add(adto);
+		}
+		
+		return atr;
+	}
 }

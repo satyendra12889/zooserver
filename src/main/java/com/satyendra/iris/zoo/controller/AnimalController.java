@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
 import com.satyendra.iris.zoo.response.dto.AnimalResponse;
+import com.satyendra.iris.zoo.response.dto.AnimalTypeDto;
 import com.satyendra.iris.zoo.services.IAnimalService;
 
 @Controller
@@ -28,7 +30,8 @@ public class AnimalController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addAnimal(@RequestBody AnimalRequestDto animal) {
-        animalService.addAnimal(animal);
+       
+    	animalService.addAnimal(animal);
         return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
     }
 
@@ -36,6 +39,13 @@ public class AnimalController {
     public @ResponseBody List<Animal> getAnimals(@PathVariable("id") int zooId) {
         return animalService.getAllAnimalFromArea(zooId);
     }
+    
+    
+    @GetMapping("/type/list")
+    public  ResponseEntity<List<AnimalTypeDto>> getAnimalType() {
+        return new ResponseEntity<List<AnimalTypeDto>>(animalService.getAnimalType(), HttpStatus.OK);
+    }
+
 
     @GetMapping("/all")
     public ResponseEntity<List<AnimalResponse>> getAllAnimals() {

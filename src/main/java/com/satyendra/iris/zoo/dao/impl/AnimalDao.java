@@ -43,7 +43,7 @@ public class AnimalDao implements IAnimalDao {
         Session s = sessionfactory.getCurrentSession();
         Criteria criteria = s.createCriteria(Animal.class);
 		criteria.createAlias("pen", "p");
-		criteria.createAlias("p.zoo", "z");
+		criteria.createAlias("p.area", "z");
 		criteria.add(Restrictions.eq("z.id", areaId));
 		return criteria.list();
 

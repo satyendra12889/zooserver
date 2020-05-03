@@ -23,9 +23,11 @@ public class Pen {
 	@ManyToOne
 	public Area area;
 	
+	int serialNo;
+	
 
 	@OneToOne
-	public Animal anml;
+	public Stock stock;
 
 
 	public int getId() {
@@ -58,13 +60,23 @@ public class Pen {
 	}
 
 
-	public Animal getAnml() {
-		return anml;
+	public int getSerialNo() {
+		return serialNo;
 	}
 
 
-	public void setAnml(Animal anml) {
-		this.anml = anml;
+	public void setSerialNo(int serialNo) {
+		this.serialNo = serialNo;
+	}
+
+
+	public Stock getStock() {
+		return stock;
+	}
+
+
+	public void setStock(Stock stockl) {
+		this.stock = stockl;
 	}
 
 }
