@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.satyendra.iris.validator.Validator;
 import com.satyendra.iris.zoo.buutil.ZooAnimalValidation;
+import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.dao.IAreaDao;
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.dao.IStockDao;
@@ -21,6 +22,9 @@ public class StockManamgementService implements IStockService  {
 	IStockDao stockDao;
 	@Autowired
 	IAreaDao areadao;
+	
+	@Autowired
+	IAnimalDao animalDao;
 	
 	@Autowired
 	IPenDao pendao;
@@ -42,8 +46,10 @@ public class StockManamgementService implements IStockService  {
 			
 			Pen p = new Pen();
 			Pen p1 = pendao.getPen(penId);
+			Animal a = animalDao.getAnimals(animalId);
 			p.setId(penId);
 			s.setPen(p);
+			s.setAnimal(a);
 			canAdd = v.validate(s, p1);
 		}
 		
