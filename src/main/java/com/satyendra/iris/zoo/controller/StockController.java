@@ -34,4 +34,19 @@ public class StockController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	
 		}
 	}
+	
+	@PostMapping("/stock/update")
+	public ResponseEntity<MessageResponse> updateStock(@RequestBody StockRequestDto stock) {
+		if( stock.getId()>0 && stock.getPenId()>0) {
+
+			stockService.updateStock(stock.getId(), stock.getPenId());
+			MessageResponse m = new MessageResponse();
+			
+				m.setMsg("Stock was successfully updated to Pen in Zoo");
+			return new ResponseEntity<MessageResponse>(m, HttpStatus.CREATED);
+
+		}else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	
+		}
+	}
 }

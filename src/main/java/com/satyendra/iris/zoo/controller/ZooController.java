@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.satyendra.iris.zoo.request.dto.PenRequestDto;
 import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
+import com.satyendra.iris.zoo.request.dto.DashBoardRequestDto;
 import com.satyendra.iris.zoo.response.dto.PenResponse;
 import com.satyendra.iris.zoo.response.dto.AreaResponse;
 import com.satyendra.iris.zoo.response.dto.DashBoardResponse;
@@ -82,8 +83,8 @@ public class ZooController {
     
     @GetMapping("/dashboard")
     @ResponseBody
-    public ResponseEntity<DashBoardResponse> getDashBoard() {
-        return new ResponseEntity<DashBoardResponse>(areaService.getDashBoardResponse(), HttpStatus.OK);
+    public ResponseEntity<DashBoardResponse> getDashBoard(@RequestBody DashBoardRequestDto dto ) {
+        return new ResponseEntity<DashBoardResponse>(areaService.getDashBoardResponse(dto), HttpStatus.OK);
         
     }
 

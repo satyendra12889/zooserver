@@ -4,6 +4,7 @@ package com.satyendra.iris.zoo.services;
 import java.util.List;
 
 import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
+import com.satyendra.iris.zoo.request.dto.DashBoardRequestDto;
 import com.satyendra.iris.zoo.request.dto.PenRequestDto;
 import com.satyendra.iris.zoo.response.dto.AreaResponse;
 import com.satyendra.iris.zoo.response.dto.DashBoardResponse;
@@ -24,6 +25,6 @@ public interface IAreaAndPenService {
 	List<PenResponse> availablePensFromArea(int zooid);
 
 	
-	DashBoardResponse getDashBoardResponse();
+	DashBoardResponse getDashBoardResponse(DashBoardRequestDto dto);
 
 }

@@ -3,7 +3,8 @@ package com.satyendra.iris.zoo.model;
 import java.util.Iterator;
 
 public enum AnimalType {
-	BIRD(0, "Bird"),
+	BIRDFLY(4, "Bird can fly"),
+	BIRDNONFLY(3, "Bird cannot fly"),
 	MAMMAL(1, "Mammal"), 
 	REPTILE(2, "Reptile");
 

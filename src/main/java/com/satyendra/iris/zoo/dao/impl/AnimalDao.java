@@ -57,6 +57,27 @@ public class AnimalDao implements IAnimalDao {
         List results = cr.list();
         return results;
     }
+
+	@Override
+	public List<Animal> getAllAnimals(int animaltype, int areaId, int penId) {
+		// TODO Auto-generated method stub
+		Session s = sessionfactory.getCurrentSession();
+        Criteria criteria = s.createCriteria(Animal.class);
+		criteria.createAlias("pen", "p");
+		criteria.createAlias("p.area", "z");
+		if(animaltype>0) {
+			criteria.add(Restrictions.eq("type", animaltype));
+		}
+		if(areaId >0) {
+			criteria.add(Restrictions.eq("z.id", areaId));
+		}
+		if(penId > 0) {
+			criteria.add(Restrictions.eq("p.id", penId));
+		}
+		
+		return criteria.list();
+		
+	}
     
     
 

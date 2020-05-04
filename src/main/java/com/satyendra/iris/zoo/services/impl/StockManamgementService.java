@@ -29,12 +29,13 @@ public class StockManamgementService implements IStockService  {
 	@Autowired
 	IPenDao pendao;
 	
+	Validator v = ZooAnimalValidation.getValidator();
+	
 	@Override
 	public int addStock(String stockName, int animalId, int penId) {
 		
-		Validator v = ZooAnimalValidation.getValidator();
+		
 
-		boolean canAdd = true;
 		Stock s = new Stock();
 		s.setName(stockName);
 		Animal anim = new Animal();
@@ -42,6 +43,15 @@ public class StockManamgementService implements IStockService  {
 		s.setAnimal(anim);
 		
 		// check pen id 
+		
+		if(validLocation(animalId, penId, v, s)) {
+		stockDao.add(s);
+		}
+		
+		return s.Id;
+	}
+
+	private boolean validLocation(int animalId, int penId, Validator v, Stock s) {
 		if(penId > 0) {
 			
 			Pen p = new Pen();
@@ -50,24 +60,22 @@ public class StockManamgementService implements IStockService  {
 			p.setId(penId);
 			s.setPen(p);
 			s.setAnimal(a);
-			canAdd = v.validate(s, p1);
+			return  v.validate(s, p1);
 		}
-		
-		if(canAdd) {
-		stockDao.add(s);
-		}
-		
-		return s.Id;
+		return true;
 	}
 
 	@Override
 	public void updateStock(int stockId, int penId) {
 		if(stockId >0) {
 			Stock s = stockDao.get(stockId);
+			
+			if(validLocation(s.getAnimal().getId(), penId, v, s)){
 			Pen p = new Pen();
 			p.setId(penId);
 			s.setPen(p);
 			stockDao.update(s);
+			}
 		}
 	}
 

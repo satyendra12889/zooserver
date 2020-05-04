@@ -58,9 +58,9 @@ public class AnimalController {
     }
     
     @GetMapping("animal/{id}")
-    public ResponseEntity<List<AnimalResponse>> getAnimal(int id){
-        List<AnimalResponse> res = animalService.getAll();
-        return new ResponseEntity<List<AnimalResponse>>(res, HttpStatus.OK);
+    public ResponseEntity<AnimalResponse> getAnimal(@PathVariable("id") int id){
+    	AnimalResponse res = animalService.getAnimal(id);
+        return new ResponseEntity<AnimalResponse>(res, HttpStatus.OK);
     }
 
 }

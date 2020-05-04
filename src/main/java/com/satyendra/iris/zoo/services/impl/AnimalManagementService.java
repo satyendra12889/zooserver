@@ -39,10 +39,10 @@ public class AnimalManagementService implements IAnimalService {
 	public IPenDao penDao;
 
 	@Override
-	public AnimalDto getAnimal(int id) {
+	public AnimalResponse getAnimal(int id) {
 
 		Animal animal = animalDao.getAnimals(id);
-		AnimalDto animDto = new AnimalDto();
+		AnimalResponse animDto = new AnimalResponse();
 		animDto.setAnimalId(animal.getId());
 		animDto.setAnimalName(animal.getName());
 		animDto.setType(AnimalType.getAnimalType(animal.getType()).getName());
@@ -65,12 +65,14 @@ public class AnimalManagementService implements IAnimalService {
 				AreaDto adto = new AreaDto();
 				adto.setAreaId(area.getId());
 				adto.setAreaName(area.getName());
+				pdto.setArea(adto);
+				dto.setPenResponse(pdto);
 			}
 			stockdtos.add(dto);			
 		}
 
 
-
+		animDto.setStocks(stockdtos);
 		return animDto;
 	}
 

@@ -6,6 +6,8 @@ public class PenDto {
 	
 	String pegName;
 	
+	AreaDto area;
+	
 	AnimalDto animal;
 	
 	int available;
@@ -40,6 +42,14 @@ public class PenDto {
 
 	public void setAvailable(int available) {
 		this.available = available;
+	}
+
+	public AreaDto getArea() {
+		return area;
+	}
+
+	public void setArea(AreaDto area) {
+		this.area = area;
 	}
 
 }

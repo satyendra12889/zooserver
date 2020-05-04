@@ -11,7 +11,7 @@ import com.satyendra.iris.zoo.response.dto.AnimalTypeResponse;
 
 public interface IAnimalService {
 	
-	AnimalDto getAnimal(int id);
+	AnimalResponse getAnimal(int id);
 	
 	List<Animal> getAllAnimalFromArea(int areaId);
 	

@@ -14,4 +14,6 @@ public interface IAnimalDao {
 	
 	List<Animal> getAllAnimals();
 	
+	List<Animal> getAllAnimals(int animaltype, int areaId, int penId );
+	
 }

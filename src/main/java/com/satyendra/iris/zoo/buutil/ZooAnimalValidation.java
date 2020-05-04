@@ -21,11 +21,13 @@ public class ZooAnimalValidation {
 		bearandBirdCriteria.addAnimal("polar bear");
 		bearandBirdCriteria.addAnimal("black bear");
 		bearandBirdCriteria.addAnimal("brown bear");
-		bearandBirdCriteria.addAnimalType(AnimalType.BIRD);
+		bearandBirdCriteria.addAnimalType(AnimalType.BIRDFLY);
+		bearandBirdCriteria.addAnimalType(AnimalType.BIRDNONFLY);
 		
 		
 		NotContainCriteria reptileCriteria = new NotContainCriteria();
-		reptileCriteria.addAnimalType(AnimalType.BIRD);
+		reptileCriteria.addAnimalType(AnimalType.BIRDFLY);
+		reptileCriteria.addAnimalType(AnimalType.BIRDNONFLY);
 		reptileCriteria.addAnimalType(AnimalType.REPTILE);
 		
 		

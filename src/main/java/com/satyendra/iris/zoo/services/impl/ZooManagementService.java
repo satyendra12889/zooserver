@@ -17,6 +17,7 @@ import com.satyendra.iris.zoo.model.Area;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
+import com.satyendra.iris.zoo.request.dto.DashBoardRequestDto;
 import com.satyendra.iris.zoo.request.dto.PenRequestDto;
 import com.satyendra.iris.zoo.response.dto.AnimalDto;
 import com.satyendra.iris.zoo.response.dto.AnimalResponse;
@@ -75,7 +76,7 @@ public class ZooManagementService implements IAreaAndPenService {
 	}
 
 	@Override
-	public DashBoardResponse getDashBoardResponse() {
+	public DashBoardResponse getDashBoardResponse(DashBoardRequestDto requestDto) {
 
 		DashBoardResponse dsresp = new DashBoardResponse();
 		// area response 
@@ -92,7 +93,10 @@ public class ZooManagementService implements IAreaAndPenService {
 		}
 
 		List<AnimalDto> stock = new ArrayList<>();
-		List<Animal> animal = animalDao.getAllAnimals();
+		
+		 
+		
+		List<Animal> animal = animalDao.getAllAnimals(requestDto.getAnimalType(), requestDto.getAreaId(), requestDto.getPenId());
 
 		for (int i = 0; i < animal.size(); i++) {
 			AnimalDto  dto = new AnimalDto();
@@ -117,6 +121,9 @@ public class ZooManagementService implements IAreaAndPenService {
 		return dsresp;
 
 	}
+
+	
+	
 
 
 
