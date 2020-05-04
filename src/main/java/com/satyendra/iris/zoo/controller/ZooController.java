@@ -18,6 +18,7 @@ import com.satyendra.iris.zoo.request.dto.AreaRequestDto;
 import com.satyendra.iris.zoo.response.dto.PenResponse;
 import com.satyendra.iris.zoo.response.dto.AreaResponse;
 import com.satyendra.iris.zoo.response.dto.DashBoardResponse;
+import com.satyendra.iris.zoo.response.dto.MessageResponse;
 import com.satyendra.iris.zoo.services.IAreaAndPenService;
 
 @RestController
@@ -27,12 +28,15 @@ public class ZooController {
     public IAreaAndPenService areaService;
 
     @PostMapping("/area/add")
-    public ResponseEntity<String> addArea(@RequestBody AreaRequestDto area) {
+    public ResponseEntity<MessageResponse> addArea(@RequestBody AreaRequestDto area) {
         // area could not be created without pen.
     	if(area.getQty()>0 && area.getName()!=null) {
     	
-    	areaService.addAreaSpace(area.getName(),area.getQty());
-        return new ResponseEntity<String>("area is created successfully", HttpStatus.CREATED);
+    	 areaService.addAreaSpace(area.getName(),area.getQty());
+    	MessageResponse m = new MessageResponse();
+			m.setMsg("area is created successfully");
+    	
+        return new ResponseEntity<MessageResponse>(m, HttpStatus.CREATED);
     	
     	}else {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);	

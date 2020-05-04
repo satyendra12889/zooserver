@@ -11,13 +11,11 @@ public class BearAndBirdCriteria extends NotContainCriteria  {
 			if(item.getType() != pen.getType())
 				if((getAnimals().contains(item.getName())
 						&& getAnimalType().containsKey(pen.getType()))
-						&& (getAnimals().contains(pen.getName())
-								||getAnimalType().containsKey(item.getType()))) {
+						|| (getAnimals().contains(pen.getName())
+								&&getAnimalType().containsKey(item.getType()))) {
 					return false;
 				}
 		}
-		
-		
 		return  true;
 	}
 

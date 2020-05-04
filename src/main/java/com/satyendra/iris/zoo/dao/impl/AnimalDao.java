@@ -33,6 +33,7 @@ public class AnimalDao implements IAnimalDao {
     public Animal getAnimals(int id) {
         Session s = sessionfactory.getCurrentSession();
         Criteria cr = s.createCriteria(Animal.class);
+        cr.add(Restrictions.eq("id", id));
         List results = cr.list();
         return (Animal) results.get(0);
     }

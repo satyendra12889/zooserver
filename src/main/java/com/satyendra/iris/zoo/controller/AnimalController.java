@@ -18,6 +18,7 @@ import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
 import com.satyendra.iris.zoo.response.dto.AnimalResponse;
 import com.satyendra.iris.zoo.response.dto.AnimalTypeDto;
+import com.satyendra.iris.zoo.response.dto.MessageResponse;
 import com.satyendra.iris.zoo.services.IAnimalService;
 
 @Controller
@@ -29,10 +30,13 @@ public class AnimalController {
     public IAnimalService animalService;
 
     @PostMapping("animal/add")
-    public ResponseEntity<String> addAnimal(@RequestBody AnimalRequestDto animal) {
+    public ResponseEntity<MessageResponse> addAnimal(@RequestBody AnimalRequestDto animal) {
        
     	animalService.addAnimal(animal);
-        return new ResponseEntity<String>("Animal was successfully added to Pen in Zoo", HttpStatus.CREATED);
+    	MessageResponse m = new MessageResponse();
+    	
+    	m.setMsg("Animal was successfully added to Pen in Zoo");
+        return new ResponseEntity<MessageResponse>(m, HttpStatus.CREATED);
     }
 
     @GetMapping("animal/list/{id}")
