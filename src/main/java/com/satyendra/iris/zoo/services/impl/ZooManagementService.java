@@ -76,7 +76,7 @@ public class ZooManagementService implements IAreaAndPenService {
 	}
 
 	@Override
-	public DashBoardResponse getDashBoardResponse(DashBoardRequestDto requestDto) {
+	public DashBoardResponse getDashBoardResponse(int animalType, int  areaId, int   penId) {
 
 		DashBoardResponse dsresp = new DashBoardResponse();
 		// area response 
@@ -96,7 +96,7 @@ public class ZooManagementService implements IAreaAndPenService {
 		
 		 
 		
-		List<Animal> animal = animalDao.getAllAnimals(requestDto.getAnimalType(), requestDto.getAreaId(), requestDto.getPenId());
+		List<Animal> animal = animalDao.getAllAnimals(animalType, areaId, penId);
 
 		for (int i = 0; i < animal.size(); i++) {
 			AnimalDto  dto = new AnimalDto();
@@ -174,9 +174,24 @@ public class ZooManagementService implements IAreaAndPenService {
 	}
 
 	@Override
-	public List<PenResponse> allPensFromArea(int areaId) {
+	public List<PenResponse> filledPensFromArea(int areaId) {
 
-		return null;
+		Area z = areaDao.getArea(areaId);
+
+		Set<Pen> p = z.getPens();
+
+		List<PenResponse> pendtos  = new ArrayList<>();
+
+		for (Pen pen : p) {
+			PenResponse pdto = new PenResponse();
+			pdto.setPegId(pen.getId());
+			pdto.setPegName(pen.getName());
+			if(pen.getStock()!=null) {
+				pendtos.add(pdto);
+			}
+		}
+
+		return pendtos;
 	}
 	
 	

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -74,17 +75,17 @@ public class ZooController {
         return new ResponseEntity<String>("Pen is successfully created", HttpStatus.CREATED);
     }
 
-    @GetMapping("/pen/{id}")
+    @GetMapping("/pen/filled/{id}")
     @ResponseBody
-    public List<PenResponse> getPen(@PathVariable("id") int areaId) {
-        return areaService.allPensFromArea(areaId);
+    public ResponseEntity<List<PenResponse>> getFilledPen(@PathVariable("id") int areaId) {
+        return new ResponseEntity<List<PenResponse>>(areaService.filledPensFromArea(areaId), HttpStatus.OK);
         
     }
     
     @GetMapping("/dashboard")
     @ResponseBody
-    public ResponseEntity<DashBoardResponse> getDashBoard(@RequestBody DashBoardRequestDto dto ) {
-        return new ResponseEntity<DashBoardResponse>(areaService.getDashBoardResponse(dto), HttpStatus.OK);
+    public ResponseEntity<DashBoardResponse> getDashBoard(@RequestParam int animalType,@RequestParam int areaId, @RequestParam int penId  ) {
+        return new ResponseEntity<DashBoardResponse>(areaService.getDashBoardResponse(  animalType,   areaId,   penId), HttpStatus.OK);
         
     }
 

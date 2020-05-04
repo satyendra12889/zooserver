@@ -20,11 +20,11 @@ public interface IAreaAndPenService {
 	
 	void addPen(PenRequestDto pen);
 	
-	List<PenResponse> allPensFromArea(int zooid);
+	List<PenResponse> filledPensFromArea(int zooid);
 
 	List<PenResponse> availablePensFromArea(int zooid);
 
 	
-	DashBoardResponse getDashBoardResponse(DashBoardRequestDto dto);
+	DashBoardResponse getDashBoardResponse( int animalType, int  areaId, int   penId);
 
 }
