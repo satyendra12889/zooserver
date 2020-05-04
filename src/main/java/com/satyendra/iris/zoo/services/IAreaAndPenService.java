@@ -21,6 +21,9 @@ public interface IAreaAndPenService {
 	
 	List<PenResponse> allPensFromArea(int zooid);
 
+	List<PenResponse> availablePensFromArea(int zooid);
+
+	
 	DashBoardResponse getDashBoardResponse();
 
 }

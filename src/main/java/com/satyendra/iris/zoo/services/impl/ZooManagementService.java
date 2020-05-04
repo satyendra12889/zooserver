@@ -12,6 +12,7 @@ import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.dao.IAreaDao;
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.model.Area;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
@@ -24,6 +25,7 @@ import com.satyendra.iris.zoo.response.dto.AreaResponse;
 import com.satyendra.iris.zoo.response.dto.DashBoardResponse;
 import com.satyendra.iris.zoo.response.dto.PenDto;
 import com.satyendra.iris.zoo.response.dto.PenResponse;
+import com.satyendra.iris.zoo.response.dto.StockDto;
 import com.satyendra.iris.zoo.services.IAreaAndPenService;
 
 @Service
@@ -57,8 +59,6 @@ public class ZooManagementService implements IAreaAndPenService {
 		}
 	}
 
-
-
 	@Override
 	public List<AreaResponse> getAllAreaSpaces() {
 
@@ -71,9 +71,7 @@ public class ZooManagementService implements IAreaAndPenService {
 			dto.setAreaName(z.name);
 			areaResponses.add(dto);
 		}
-
 		return areaResponses;
-
 	}
 
 	@Override
@@ -101,7 +99,15 @@ public class ZooManagementService implements IAreaAndPenService {
 			Animal a = animal.get(i);
 			dto.setAnimalId(a.getId());
 			dto.setAnimalName(a.getName());
-
+			
+			Set<Stock> stocks = a.getStock();
+			List<StockDto> stockList = new ArrayList<>();
+			for (Stock s : stocks) {
+				StockDto sdto = new StockDto();
+				sdto.setStockId(s.getId());
+				stockList.add(sdto);
+			}
+			dto.setStocks(stockList);
 			stock.add(dto);
 		}
 
@@ -152,7 +158,6 @@ public class ZooManagementService implements IAreaAndPenService {
 
 			}
 			pendtos.add(pdto);
-			
 		}
 
 		dto.setAllPens(pendtos);
@@ -163,8 +168,31 @@ public class ZooManagementService implements IAreaAndPenService {
 
 	@Override
 	public List<PenResponse> allPensFromArea(int areaId) {
-		// TODO Auto-generated method stub
+
 		return null;
+	}
+
+	@Override
+	public List<PenResponse> availablePensFromArea(int areaId) {
+		
+		Area z = areaDao.getArea(areaId);
+
+		Set<Pen> p = z.getPens();
+
+		List<PenResponse> pendtos  = new ArrayList<>();
+
+		for (Pen pen : p) {
+			PenResponse pdto = new PenResponse();
+			pdto.setPegId(pen.getId());
+			pdto.setPegName(pen.getName());
+			if(pen.getStock()==null) {
+				pendtos.add(pdto);
+			}
+			
+		}
+
+		return pendtos;
+
 	}
 
 }

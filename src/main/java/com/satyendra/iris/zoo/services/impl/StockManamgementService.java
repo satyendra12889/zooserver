@@ -31,6 +31,9 @@ public class StockManamgementService implements IStockService  {
 		// check pen id 
 		if(penId > 0) {
 			// logic can add to the pen or not 
+			// check for area 
+			// check for adjacent 
+			
 			Pen p = new Pen();
 			p.setId(penId);
 			s.setPen(p);

@@ -53,4 +53,14 @@ public class Animal {
 		this.type = type;
 	}
 
+
+	public Set<Stock> getStock() {
+		return stock;
+	}
+
+
+	public void setStock(Set<Stock> stock) {
+		this.stock = stock;
+	}
+
 }

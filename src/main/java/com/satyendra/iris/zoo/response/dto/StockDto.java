@@ -3,6 +3,8 @@ package com.satyendra.iris.zoo.response.dto;
 public class StockDto {
 	
 	int stockId;
+	
+	String stockName;
 
     AnimalDto animal;
 
@@ -50,6 +52,14 @@ public class StockDto {
 
 	public void setAnimal(AnimalDto animal) {
 		this.animal = animal;
+	}
+
+	public String getStockName() {
+		return stockName;
+	}
+
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
 	}
 
 }

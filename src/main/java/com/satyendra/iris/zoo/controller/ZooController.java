@@ -51,6 +51,13 @@ public class ZooController {
 		
 	    return new ResponseEntity<AreaResponse>(area, HttpStatus.OK);
 	}
+	
+	@GetMapping("/area/available/{id}")
+	public ResponseEntity<List<PenResponse>> getAvailableArea(@PathVariable("id") int id){
+		List<PenResponse> area = areaService.availablePensFromArea(id);
+		
+	    return new ResponseEntity<List<PenResponse>>(area, HttpStatus.OK);
+	}
 
     public void removearea() {
 
@@ -60,7 +67,6 @@ public class ZooController {
     public ResponseEntity<String> addPen(@RequestBody PenRequestDto pen) {
         areaService.addPen(pen);
         return new ResponseEntity<String>("Pen is successfully created", HttpStatus.CREATED);
-
     }
 
     @GetMapping("/pen/{id}")
