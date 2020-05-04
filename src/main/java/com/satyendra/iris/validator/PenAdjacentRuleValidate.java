@@ -1,43 +1,25 @@
 package com.satyendra.iris.validator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
+import com.satyendra.iris.validator.criteria.ICriteria;
 import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.AnimalType;
-import com.satyendra.iris.zoo.model.Area;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 
 public class PenAdjacentRuleValidate implements IValidate<Stock, Pen> {
 
-	List<Animal> animals;
 	
-	AnimalType animalType;
-	
-	public PenAdjacentRuleValidate(AnimalType type) {
+	ICriteria<Animal> criteira;
+
+	public PenAdjacentRuleValidate(ICriteria<Animal> animCriteria) {
 		super();
-		animals = new ArrayList<Animal>();
+		criteira = animCriteria;
 	}
-	
-	public void addAnimal(Animal a) {
-		animals.add(a);
-		
-	}
-	
-	public void removeAnimal(int animalId) {
-		for (Animal animal : animals) {
-			if(animal.getId() == animalId) {
-				animals.remove(animal);
-				break;
-			}
-		}
-	}
-	
+
 	@Override
 	public Boolean validate(Stock s, Pen a) {
-		
+
 		Set<Pen> pens = a.getArea().getPens();
 		int size = pens.size();
 		int serialno = a.getSerialNo();
@@ -53,26 +35,21 @@ public class PenAdjacentRuleValidate implements IValidate<Stock, Pen> {
 				rightPen = pen;
 			}
 		}
-		
-		// contains in array 
-		for (Animal animal : animals) {
-			if(animal.getId() == s.getAnimal().getId()) {
-				checkItem = true;
-			}
-		}
-		if(checkItem == true) {
-			for (Pen pen : pens) {
-				if(pen.getStock() !=null && pen.getStock().getAnimal().getId() != s.getAnimal().getId()) {
-					for (Animal anim : animals) {
-						if(pen.getStock().getAnimal().getId() == anim.getId()) {
-							return false;
-						}
-					}
-					
-				}
-			}
+
+		if(!check(s, leftPen) ||! check(s, rightPen)){
+			return false;
 		}
 		return true;
 	}
+
+	private boolean check(Stock s, Pen leftPen) {
+		if(leftPen.getStock()!=null) {
+
+		return criteira.satisfyCriteria(s.getAnimal(), leftPen.getStock().getAnimal());	
+
+		}
+		return true;
+	}
+
 
 }

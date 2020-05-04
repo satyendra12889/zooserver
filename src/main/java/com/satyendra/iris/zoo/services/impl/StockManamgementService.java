@@ -37,7 +37,7 @@ public class StockManamgementService implements IStockService  {
 			Pen p = new Pen();
 			p.setId(penId);
 			s.setPen(p);
-			canAdd = v.validate();
+			canAdd = v.validate(s, p);
 		}
 		
 		if(canAdd) {

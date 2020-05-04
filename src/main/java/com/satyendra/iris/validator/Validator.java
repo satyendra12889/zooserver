@@ -5,9 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.satyendra.iris.zoo.model.Area;
+import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 
-public class Validator  implements IValidate<Stock, Area>{
+public class Validator implements IValidate<Stock, Pen>{
 	
 	List<IValidate> ruleValidate;
 	
@@ -17,19 +18,21 @@ public class Validator  implements IValidate<Stock, Area>{
 		ruleValidate = new ArrayList<>();
 	}
 
-	public void addRule(IValidate rule) {
+	public void addRule(IValidate<Stock, Pen> rule) {
 		ruleValidate.add(rule);
 	}
 	
 	@Override
-	public Boolean validate(Stock s, Area a) {
+	public Boolean validate(Stock s, Pen a) {
 		
 		for (Iterator iterator = ruleValidate.iterator(); iterator.hasNext();) {
-			IValidate iValidate = (IValidate) iterator.next();
-			iValidate.validate(s, a);
+			IValidate<Stock, Pen> iValidate = (IValidate) iterator.next();
+			if(!iValidate.validate(s, a)) {
+				return false;
+			}
 		}
 		
-		return null;
+		return true;
 	}
 
 }
