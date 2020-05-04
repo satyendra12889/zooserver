@@ -1,5 +1,7 @@
 package com.satyendra.iris.zoo.model;
 
+import java.util.Iterator;
+
 public enum AnimalType {
 	BIRD(0, "Bird"),
 	MAMMAL(1, "Mammal"), 
@@ -21,4 +23,13 @@ public enum AnimalType {
 		return name;
 	}
 
+	
+	public static AnimalType getAnimalType(int id) {
+		for(AnimalType a:values()) {
+			if(a.getNumVal()==id) {
+				return a;
+			}
+		}
+		return null;
+	}
 }

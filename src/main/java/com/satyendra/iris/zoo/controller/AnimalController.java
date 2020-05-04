@@ -56,5 +56,11 @@ public class AnimalController {
         List<AnimalResponse> res = animalService.getAll();
         return new ResponseEntity<List<AnimalResponse>>(res, HttpStatus.OK);
     }
+    
+    @GetMapping("animal/{id}")
+    public ResponseEntity<List<AnimalResponse>> getAnimal(int id){
+        List<AnimalResponse> res = animalService.getAll();
+        return new ResponseEntity<List<AnimalResponse>>(res, HttpStatus.OK);
+    }
 
 }

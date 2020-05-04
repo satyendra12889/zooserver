@@ -7,6 +7,7 @@ public class AnimalDto {
 	int animalId;
 
     String type;
+    int typeId;
     
     String animalName;
     
@@ -52,6 +53,14 @@ public class AnimalDto {
 
 	public void setStocks(List<StockDto> stocks) {
 		this.stocks = stocks;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 
 }

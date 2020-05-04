@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.request.dto.AnimalRequestDto;
+import com.satyendra.iris.zoo.response.dto.AnimalDto;
 import com.satyendra.iris.zoo.response.dto.AnimalResponse;
 import com.satyendra.iris.zoo.response.dto.AnimalTypeDto;
 import com.satyendra.iris.zoo.response.dto.AnimalTypeResponse;
 
 public interface IAnimalService {
 	
-	Animal getAnimal(int id);
+	AnimalDto getAnimal(int id);
 	
 	List<Animal> getAllAnimalFromArea(int areaId);
 	
