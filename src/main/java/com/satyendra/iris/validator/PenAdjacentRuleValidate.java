@@ -2,7 +2,8 @@ package com.satyendra.iris.validator;
 
 import java.util.Set;
 
-import com.satyendra.iris.validator.criteria.ICriteria;
+import com.satyendra.iris.validator.criteria.inf.ICriteria;
+import com.satyendra.iris.validator.inf.IValidate;
 import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
@@ -19,7 +20,7 @@ public class PenAdjacentRuleValidate implements IValidate<Stock, Pen> {
 
 	@Override
 	public Boolean validate(Stock s, Pen a) {
-
+		
 		Set<Pen> pens = a.getArea().getPens();
 		int size = pens.size();
 		int serialno = a.getSerialNo();

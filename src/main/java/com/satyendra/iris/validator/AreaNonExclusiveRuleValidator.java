@@ -1,12 +1,10 @@
 package com.satyendra.iris.validator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-import com.satyendra.iris.validator.criteria.ICriteria;
+import com.satyendra.iris.validator.criteria.inf.ICriteria;
+import com.satyendra.iris.validator.inf.IValidate;
 import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 
@@ -32,7 +30,6 @@ public class AreaNonExclusiveRuleValidator implements IValidate<Stock, Pen> {
 				}
 			}
 		}
-
 		return true;
 	}
 

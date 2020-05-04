@@ -5,21 +5,30 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.satyendra.iris.validator.Validator;
+import com.satyendra.iris.zoo.buutil.ZooAnimalValidation;
+import com.satyendra.iris.zoo.dao.IAreaDao;
+import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.dao.IStockDao;
 import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
+import com.satyendra.iris.zoo.services.IAreaAndPenService;
 import com.satyendra.iris.zoo.services.IStockService;
 @Service
 public class StockManamgementService implements IStockService  {
 
 	@Autowired
 	IStockDao stockDao;
+	@Autowired
+	IAreaDao areadao;
+	
+	@Autowired
+	IPenDao pendao;
 	
 	@Override
 	public int addStock(String stockName, int animalId, int penId) {
 		
-		Validator v = new Validator();
+		Validator v = ZooAnimalValidation.getValidator();
 
 		boolean canAdd = true;
 		Stock s = new Stock();
@@ -30,14 +39,12 @@ public class StockManamgementService implements IStockService  {
 		
 		// check pen id 
 		if(penId > 0) {
-			// logic can add to the pen or not 
-			// check for area 
-			// check for adjacent 
 			
 			Pen p = new Pen();
+			Pen p1 = pendao.getPen(penId);
 			p.setId(penId);
 			s.setPen(p);
-			canAdd = v.validate(s, p);
+			canAdd = v.validate(s, p1);
 		}
 		
 		if(canAdd) {

@@ -1,4 +1,4 @@
-package com.satyendra.iris.validator;
+package com.satyendra.iris.validator.inf;
 
 public interface IValidate<T,V> {
 

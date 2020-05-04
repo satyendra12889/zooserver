@@ -1,4 +1,4 @@
-package com.satyendra.iris.validator.criteria;
+package com.satyendra.iris.validator.criteria.inf;
 
 public interface ICriteria <T>{
 	

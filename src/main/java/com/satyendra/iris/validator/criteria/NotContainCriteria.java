@@ -1,26 +1,29 @@
 package com.satyendra.iris.validator.criteria;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import com.satyendra.iris.validator.criteria.inf.ICriteria;
 import com.satyendra.iris.zoo.model.Animal;
 import com.satyendra.iris.zoo.model.AnimalType;
 
 public class NotContainCriteria implements ICriteria<Animal> {
 
-	Map<Integer, Animal> animals;
+	Set<String> animals;
 
 	Map<Integer, AnimalType> animalType;
 	
 	
 	public NotContainCriteria() {
 		super();
-		animals = new HashMap<>();
+		animals = new HashSet();
 		animalType = new HashMap<>();
 	}
 
-	public void addAnimal(Animal a) {
-		animals.put(a.getId(), a);
+	public void addAnimal(String a) {
+		animals.add(a);
 
 	}
 
@@ -41,29 +44,40 @@ public class NotContainCriteria implements ICriteria<Animal> {
 	@Override
 	public boolean satisfyCriteria(Animal item, Animal pen) {
 		if(item.getType() != pen.getType())
-			if((animals.containsKey(item.getId())
+			if((animals.contains(item.getName())
 					|| animalType.containsKey(item.getType()))
-					&& (animals.containsKey(pen.getId())
+					&& (animals.contains(pen.getName())
 							||animalType.containsKey(pen.type))) {
 				return false;
 			}
-
-		
 		return true;
 	}
-	
-	
 
 	@Override
 	public boolean satisfyCriteria(Animal item) {
-		// TODO Auto-generated method stub
-		if(animals.containsKey(item.getId())) {
+		if(animals.contains(item.getName())) {
 		return false;
 		}
 		if(animalType.containsKey(item.getType())) {
 			return false;
 		}
 		return true;
+	}
+
+	public Set<String> getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(Set<String> animals) {
+		this.animals = animals;
+	}
+
+	public Map<Integer, AnimalType> getAnimalType() {
+		return animalType;
+	}
+
+	public void setAnimalType(Map<Integer, AnimalType> animalType) {
+		this.animalType = animalType;
 	}
 
 }
