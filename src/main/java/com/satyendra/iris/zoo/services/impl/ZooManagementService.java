@@ -93,9 +93,9 @@ public class ZooManagementService implements IAreaAndPenService {
 		}
 
 		List<AnimalDto> stock = new ArrayList<>();
-		
-		 
-		
+
+
+
 		List<Animal> animal = animalDao.getAllAnimals(animalType, areaId, penId);
 
 		for (int i = 0; i < animal.size(); i++) {
@@ -103,7 +103,7 @@ public class ZooManagementService implements IAreaAndPenService {
 			Animal a = animal.get(i);
 			dto.setAnimalId(a.getId());
 			dto.setAnimalName(a.getName());
-			
+
 			Set<Stock> stocks = a.getStock();
 			List<StockDto> stockList = new ArrayList<>();
 			for (Stock s : stocks) {
@@ -122,11 +122,6 @@ public class ZooManagementService implements IAreaAndPenService {
 
 	}
 
-	
-	
-
-
-
 	@Override
 	public void addPen(PenRequestDto penDto) {
 		Pen pen = new Pen();
@@ -137,8 +132,6 @@ public class ZooManagementService implements IAreaAndPenService {
 		penDao.addPen(pen);
 
 	}
-
-
 
 	@Override
 	public AreaResponse getAreaSpaces(int areaId) {
@@ -159,9 +152,9 @@ public class ZooManagementService implements IAreaAndPenService {
 
 			Stock a = pen.getStock();
 			if(a!=null) {
-			adto.setAnimalId(a.getId());
-			adto.setAnimalName(a.getName());
-			pdto.setAnimal(adto);
+				adto.setAnimalId(a.getId());
+				adto.setAnimalName(a.getName());
+				pdto.setAnimal(adto);
 
 			}
 			pendtos.add(pdto);
@@ -169,8 +162,6 @@ public class ZooManagementService implements IAreaAndPenService {
 
 		dto.setAllPens(pendtos);
 		return dto;
-
-
 	}
 
 	@Override
@@ -193,12 +184,10 @@ public class ZooManagementService implements IAreaAndPenService {
 
 		return pendtos;
 	}
-	
-	
 
 	@Override
 	public List<PenResponse> availablePensFromArea(int areaId) {
-		
+
 		Area z = areaDao.getArea(areaId);
 
 		Set<Pen> p = z.getPens();
@@ -212,11 +201,7 @@ public class ZooManagementService implements IAreaAndPenService {
 			if(pen.getStock()==null) {
 				pendtos.add(pdto);
 			}
-			
 		}
-
 		return pendtos;
-
 	}
-
 }

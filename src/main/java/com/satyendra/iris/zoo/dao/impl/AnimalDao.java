@@ -80,9 +80,5 @@ public class AnimalDao implements IAnimalDao {
 		}
 		
 		return criteria.list();
-		
 	}
-    
-    
-
 }
