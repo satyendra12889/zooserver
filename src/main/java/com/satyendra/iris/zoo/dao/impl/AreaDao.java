@@ -2,8 +2,10 @@ package com.satyendra.iris.zoo.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,7 +34,12 @@ public class AreaDao implements IAreaDao {
         //        Criteria criteria = s.createCriteria(Area.class);
         //        criteria.add(Restrictions.eq("id", id));
         //        return (Area) criteria.list().get(0);
-        return null;
+        
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Area> query = em.createQuery("SELECT a from Area a where a.id = :id", Area.class);
+        query.setParameter("id", id);
+        List<Area> result = query.getResultList();
+        return result.get(0);
     }
 
     @Override

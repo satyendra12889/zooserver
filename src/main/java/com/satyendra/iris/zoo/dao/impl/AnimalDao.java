@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.model.Animal;
+import com.satyendra.iris.zoo.model.Area;
 
 @Repository
 public class AnimalDao implements IAnimalDao {
@@ -36,13 +37,13 @@ public class AnimalDao implements IAnimalDao {
     @Override
     public Animal getAnimals(int id) {
 //        Session s = em.getCurrentSession();
-        EntityManager em = emf.createEntityManager();
-    	CriteriaBuilder cb = em.getCriteriaBuilder();
-    	CriteriaQuery<Animal> cq=cb.createQuery(Animal.class);
-    	Root<Animal> stud=cq.from(Animal.class);
-//    	Root<Animal> animal = cq.from(Animal_);
-    	cq.where(cb.equal(stud.get("id"),id));
-    	
+//        EntityManager em = emf.createEntityManager();
+//    	CriteriaBuilder cb = em.getCriteriaBuilder();
+//    	CriteriaQuery<Animal> cq=cb.createQuery(Animal.class);
+//    	Root<Animal> stud=cq.from(Animal.class);
+////    	Root<Animal> animal = cq.from(Animal_);
+//    	cq.where(cb.equal(stud.get("id"),id));
+//    	
 //    	CriteriaQuery<Animal> select = cq.select(stud);
 //    	Query q = em.createQuery(select);  
 //    	List<Animal> list = q.getResultList();
@@ -50,8 +51,11 @@ public class AnimalDao implements IAnimalDao {
 //    	
 //        cr.add(Restrictions.eq("id", id));
 //        List results = cr.list();
-    	 
-        return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Animal> query = em.createQuery("SELECT a from Animal a where a.id = :id", Animal.class);
+        query.setParameter("id", id);
+        List<Animal> result = query.getResultList();
+        return result.get(0);
     }
 
     @Override

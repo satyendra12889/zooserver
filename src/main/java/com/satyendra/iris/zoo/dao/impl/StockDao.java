@@ -5,11 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IStockDao;
+import com.satyendra.iris.zoo.model.Area;
 import com.satyendra.iris.zoo.model.Stock;
 
 @Repository
@@ -34,12 +36,17 @@ public class StockDao implements IStockDao {
 
 	@Override
 	public Stock get(int stockId) {
-	    EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		Stock stock = em.find(Stock.class, stockId);
-		em.getTransaction().commit();
-		return stock;
+//	    EntityManager em = emf.createEntityManager();
+//		em.getTransaction().begin();
+//
+//		Stock stock = em.find(Stock.class, stockId);
+//		em.getTransaction().commit();
+//		return stock;
+		EntityManager em = emf.createEntityManager();
+        TypedQuery<Stock> query = em.createQuery("SELECT s from Stock s where s.id = :id", Stock.class);
+        query.setParameter("id", stockId);
+        List<Stock> result = query.getResultList();
+        return result.get(0);
 	}
 
 	@Override
