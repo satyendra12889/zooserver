@@ -1,22 +1,20 @@
 
 package com.satyendra.iris.zoo.dao.impl;
 
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.Area;
 
 @Repository
 public class AnimalDao implements IAnimalDao {
@@ -84,7 +82,7 @@ public class AnimalDao implements IAnimalDao {
     }
 
 	@Override
-	public List<Animal> getAllAnimals(int animaltype, int areaId, int penId) {
+	public List<Animal> getAllAnimals(int animalType, int areaId, int penId) {
 		// TODO Auto-generated method stub
 //		Session s = sessionfactory.getCurrentSession();
 //        Criteria criteria = s.createCriteria(Animal.class);
@@ -106,9 +104,33 @@ public class AnimalDao implements IAnimalDao {
 //		
 //		return criteria.list();
 	    EntityManager em = emf.createEntityManager();
-	    String sqlQuery = "";
-	    TypedQuery<Animal> query  = em.createQuery(sqlQuery,Animal.class);
-	    List<Animal> result = query.getResultList();
+	    String sqlQuery1 = "SELECT a from ANIMAL a  left join STOCK s on a.id = s.animal_id left join PEN p on s.pen_id = p.id" ;
+	    if(areaId >0 || penId >0) {
+	        sqlQuery1 += "where ";
+	    }
+	    if(areaId >0) {
+	        sqlQuery1 += "a.type=:animalType ";
+	    }
+	    
+	    if(penId > 0) {
+	        if(areaId >0) {
+	            sqlQuery1 += "and ";
+	        }
+	        sqlQuery1 += "p. id = :penId and p.area_id = :areaId ";
+	    }
+	    
+	    TypedQuery<Animal> query1  = em.createQuery(sqlQuery1,Animal.class);
+	    query1.setParameter("animalType", animalType);
+	    query1.setParameter("penId", penId);
+        query1.setParameter("areaId", areaId);
+//        List<Collection> l = query1.getResultList();
+//        
+//	    String sqlQuery = "SELECT a from ANIMAL a JOIN STOCK s on a JOIN PEN p where a.TYPE = :animalType and p.ID = :penId and p.AREA_ID = :penAreaId";
+//	    TypedQuery<Animal> query  = em.createQuery(sqlQuery,Animal.class);
+//	    query.setParameter("animalType", animalType);
+//	    
+	    List<Animal> result = query1.getResultList();
+	    
 		return result;
 	}
 }
