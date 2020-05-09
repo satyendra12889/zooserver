@@ -1,19 +1,23 @@
 package com.satyendra.iris.zoo.dao.impl;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transaction;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DaoHelper {
 
-    void persist(SessionFactory sessionfactory, Object object) {
+    void persist(EntityManager em, Object object) {
         try {
-            Session s = sessionfactory.getCurrentSession();
-            Transaction t = s.beginTransaction();
-            s.save(object);
-            t.commit();
+//            Session s = sessionfactory.getCurrentSession();
+//            Transaction t = sessionfactory.getTransaction();
+//            beginTransaction();
+        	em.getTransaction().begin();
+            em.persist(object);
+            em.getTransaction().commit();
+//            t.commit();
 
         } catch (Exception e) {
             e.printStackTrace();
