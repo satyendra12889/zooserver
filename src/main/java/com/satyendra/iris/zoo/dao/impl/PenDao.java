@@ -2,26 +2,20 @@ package com.satyendra.iris.zoo.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IPenDao;
 import com.satyendra.iris.zoo.model.Pen;
-import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.Area;
 
 @Repository
 public class PenDao implements IPenDao {
 
-	@PersistenceContext
-    private EntityManager em;
+    @PersistenceUnit
+    private EntityManagerFactory emf;
 
     @Autowired
     private DaoHelper daoHelper;

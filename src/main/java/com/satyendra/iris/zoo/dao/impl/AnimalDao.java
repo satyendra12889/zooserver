@@ -4,45 +4,39 @@ package com.satyendra.iris.zoo.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.satyendra.iris.zoo.dao.IAnimalDao;
 import com.satyendra.iris.zoo.model.Animal;
-import com.satyendra.iris.zoo.model.Pen;
 
 @Repository
 public class AnimalDao implements IAnimalDao {
 
     
-    @PersistenceContext
-    private EntityManager em;
+    @PersistenceUnit
+    private EntityManagerFactory emf;
 
     @Autowired
     private DaoHelper daoHelper;
 
     @Override
     public int addAnimal(Animal animal) {
-        daoHelper.persist(em, animal);
+        daoHelper.persist(emf, animal);
         return animal.id;
     }
 
     @Override
     public Animal getAnimals(int id) {
 //        Session s = em.getCurrentSession();
+        EntityManager em = emf.createEntityManager();
     	CriteriaBuilder cb = em.getCriteriaBuilder();
     	CriteriaQuery<Animal> cq=cb.createQuery(Animal.class);
     	Root<Animal> stud=cq.from(Animal.class);
@@ -79,7 +73,10 @@ public class AnimalDao implements IAnimalDao {
 //        Criteria cr = s.createCriteria(Animal.class);
 //        List results = cr.list();
 //        return results;
-    	return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Animal> query = em.createQuery("SELECT a FROM Animal a",Animal.class);
+        List<Animal> result = query.getResultList();
+    	return result;
     }
 
 	@Override
@@ -104,6 +101,10 @@ public class AnimalDao implements IAnimalDao {
 //		}
 //		
 //		return criteria.list();
-		return null;
+	    EntityManager em = emf.createEntityManager();
+	    String sqlQuery = "";
+	    TypedQuery<Animal> query  = em.createQuery(sqlQuery,Animal.class);
+	    List<Animal> result = query.getResultList();
+		return result;
 	}
 }
