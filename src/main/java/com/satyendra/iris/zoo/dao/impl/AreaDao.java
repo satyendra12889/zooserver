@@ -47,7 +47,10 @@ public class AreaDao implements IAreaDao {
         //        Session s = sessionfactory.getCurrentSession();
         //        Criteria criteria = s.createCriteria(Area.class);
         //        return criteria.list();
-        return null;
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Area> query = em.createQuery("SELECT a from Area a", Area.class);
+        List<Area> result = query.getResultList();
+        return result;
     }
 
 }
