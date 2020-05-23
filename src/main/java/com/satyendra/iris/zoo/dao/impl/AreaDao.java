@@ -16,26 +16,20 @@ import com.satyendra.iris.zoo.model.Area;
 @Repository
 public class AreaDao implements IAreaDao {
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
+   
     
     @Autowired
     private DaoHelper daoHelper;
 
     @Override
     public int addArea(Area area) {
-        daoHelper.persist(emf, area);
+        daoHelper.persist(daoHelper.getEMFInstance(), area);
         return area.id;
     }
 
     @Override
     public Area getArea(int id) {
-        //        Session s = sessionfactory.getCurrentSession();
-        //        Criteria criteria = s.createCriteria(Area.class);
-        //        criteria.add(Restrictions.eq("id", id));
-        //        return (Area) criteria.list().get(0);
-        
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = daoHelper.getEMFInstance().createEntityManager();
         TypedQuery<Area> query = em.createQuery("SELECT a from Area a where a.id = :id", Area.class);
         query.setParameter("id", id);
         List<Area> result = query.getResultList();
@@ -44,10 +38,7 @@ public class AreaDao implements IAreaDao {
 
     @Override
     public List<Area> list() {
-        //        Session s = sessionfactory.getCurrentSession();
-        //        Criteria criteria = s.createCriteria(Area.class);
-        //        return criteria.list();
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = daoHelper.getEMFInstance().createEntityManager();
         TypedQuery<Area> query = em.createQuery("SELECT a from Area a", Area.class);
         List<Area> result = query.getResultList();
         return result;

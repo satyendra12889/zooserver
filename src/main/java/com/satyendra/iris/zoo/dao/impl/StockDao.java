@@ -20,12 +20,11 @@ public class StockDao implements IStockDao {
 	@Autowired
 	DaoHelper daoHelper; 
 
-	@PersistenceUnit
-	private EntityManagerFactory emf;
+	
 
 	@Override
 	public int add(Stock s) {
-		daoHelper.persist(emf, s);
+		daoHelper.persist(daoHelper.getEMFInstance(), s);
 		return s.getId();
 	}
 
@@ -42,7 +41,7 @@ public class StockDao implements IStockDao {
 //		Stock stock = em.find(Stock.class, stockId);
 //		em.getTransaction().commit();
 //		return stock;
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = daoHelper.getEMFInstance().createEntityManager();
         TypedQuery<Stock> query = em.createQuery("SELECT s from Stock s where s.id = :id", Stock.class);
         query.setParameter("id", stockId);
         List<Stock> result = query.getResultList();
@@ -51,7 +50,7 @@ public class StockDao implements IStockDao {
 
 	@Override
 	public void update(Stock s) {
-	    EntityManager em = emf.createEntityManager();
+	    EntityManager em = daoHelper.getEMFInstance().createEntityManager();
 		em.getTransaction().begin();
 		em.merge(s);
 		em.getTransaction().commit();

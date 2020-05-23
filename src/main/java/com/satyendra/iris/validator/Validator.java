@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.satyendra.iris.validator.inf.IValidate;
+import com.satyendra.iris.validator.inf.IValidator;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 
-public class Validator implements IValidate<Stock, Pen>{
+public class Validator implements IValidator<Stock, Pen>{
 	
-	List<IValidate> ruleValidate;
+	List<IValidate<Stock, Pen>> ruleValidate;
 	
 	
 	public Validator() {
@@ -18,6 +21,7 @@ public class Validator implements IValidate<Stock, Pen>{
 		ruleValidate = new ArrayList<>();
 	}
 
+	@Override
 	public void addRule(IValidate<Stock, Pen> rule) {
 		ruleValidate.add(rule);
 	}

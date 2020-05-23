@@ -1,5 +1,8 @@
 package com.satyendra.iris.zoo.buutil;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import com.satyendra.iris.validator.AreaNonExclusiveRuleValidator;
@@ -8,14 +11,18 @@ import com.satyendra.iris.validator.Validator;
 import com.satyendra.iris.validator.criteria.BearAndBirdCriteria;
 import com.satyendra.iris.validator.criteria.NotContainCriteria;
 import com.satyendra.iris.validator.inf.IValidate;
+import com.satyendra.iris.validator.inf.IValidator;
 import com.satyendra.iris.zoo.model.AnimalType;
 import com.satyendra.iris.zoo.model.Pen;
 import com.satyendra.iris.zoo.model.Stock;
 
-@Component
+@Configuration
 public class ZooAnimalValidation {
 	
-	public static Validator getValidator(){
+	
+	
+	@Bean
+	public IValidator getValidator(){
 		
 		NotContainCriteria bearandBirdCriteria = new BearAndBirdCriteria();
 		bearandBirdCriteria.addAnimal("polar bear");
@@ -35,7 +42,7 @@ public class ZooAnimalValidation {
 		IValidate<Stock, Pen> arearuleValidation = new AreaNonExclusiveRuleValidator(reptileCriteria);
 		
 		
-		Validator validator = new Validator();
+		IValidator<Stock, Pen> validator = new Validator();
 		validator.addRule(penruleValidation);
 		validator.addRule(arearuleValidation);
 		return validator;

@@ -16,8 +16,7 @@ import com.satyendra.iris.zoo.model.Pen;
 @Repository
 public class PenDao implements IPenDao {
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
+   
 
     @Autowired
     private DaoHelper daoHelper;
@@ -29,11 +28,7 @@ public class PenDao implements IPenDao {
 
     @Override
     public Pen getPen(int id) {
-        //        Session s = sessionfactory.getCurrentSession();
-        //        Criteria criteria = s.createCriteria(Pen.class);
-        //        criteria.add(Restrictions.eq("id", id));
-        //        return (Pen) criteria.list().get(0);
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = daoHelper.getEMFInstance().createEntityManager();
         TypedQuery<Pen> query = em.createQuery("SELECT p from Pen p where p.id = :id", Pen.class);
         query.setParameter("id", id);
         List<Pen> result = query.getResultList();
@@ -43,26 +38,21 @@ public class PenDao implements IPenDao {
     @Override
     public List<Pen> list(int zooId) {
 
-        //        Session s = sessionfactory.getCurrentSession();
-        //        Criteria criteria = s.createCriteria(Pen.class);
-        //        criteria.add(Restrictions.eq("zoo.id", zooId));
-        //        return criteria.list();
         return null;
     }
 
     @Override
     public int addPen(Pen pen) {
-        daoHelper.persist(emf, pen);
+        daoHelper.persist(daoHelper.getEMFInstance(), pen);
         return pen.id;
     }
 
     @Override
     public List<Pen> getAllPens() {
-        //        Session s = sessionfactory.getCurrentSession();
-        //        Criteria cr = s.createCriteria(Pen.class);
-        //        List results = cr.list();
-        //        return results;
-        return null;
+    	EntityManager em = daoHelper.getEMFInstance().createEntityManager();
+        TypedQuery<Pen> query = em.createQuery("SELECT p from Pen p", Pen.class);
+        List<Pen> result = query.getResultList();
+        return result;
     }
 
 }
